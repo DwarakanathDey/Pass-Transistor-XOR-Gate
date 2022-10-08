@@ -1,0 +1,24 @@
+* /home/dey.nath2000/eSim-Workspace/Xor_gate/Xor_gate.cir
+
+* EESchema Netlist Version 1.1 (Spice format) creation date: Sat 08 Oct 2022 07:35:47 PM IST
+
+* To exclude a component from the Spice Netlist add [Spice_Netlist_Enabled] user FIELD set to: N
+* To reorder the component spice node sequence add [Spice_Node_Sequence] user FIELD and define sequence: 2,1,0
+
+* Sheet Name: /
+U4  Net-_SC1-Pad3_ Net-_U3-Pad1_ adc_bridge_1		
+U5  Net-_U3-Pad2_ y dac_bridge_1		
+SC1  b a Net-_SC1-Pad3_ Net-_SC1-Pad3_ sky130_fd_pr__nfet_01v8_lvt		
+SC3  a b Net-_SC1-Pad3_ Net-_SC1-Pad3_ sky130_fd_pr__nfet_01v8_lvt		
+SC2  Net-_SC1-Pad3_ a Net-_SC2-Pad3_ Net-_SC2-Pad3_ sky130_fd_pr__pfet_01v8_lvt		
+SC4  Net-_SC1-Pad3_ y Net-_SC2-Pad3_ Net-_SC2-Pad3_ sky130_fd_pr__pfet_01v8_lvt		
+v3  Net-_SC2-Pad3_ GND DC		
+v1  b GND pulse		
+v2  a GND pulse		
+U2  a plot_v1		
+U6  y plot_v1		
+U1  b plot_v1		
+scmode1  SKY130mode		
+U3  Net-_U3-Pad1_ Net-_U3-Pad2_ dwaraka_not		
+
+.end

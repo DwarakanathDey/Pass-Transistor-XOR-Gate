@@ -1,0 +1,44 @@
+* /home/dey.nath2000/esim-workspace/xor_gate/xor_gate.cir
+
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__r+c.model.spice"
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__inductors.model.spice"
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__diode_pd2nw_11v0.model.spice"
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__linear.model.spice"
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__pnp.model.spice"
+.lib "/usr/share/local/sky130_fd_pr/models/sky130.lib.spice" tt
+.include "/usr/share/local/sky130_fd_pr/models/sky130_fd_pr__model__diode_pw2nd_11v0.model.spice"
+* u4  net-_sc1-pad3_ net-_u3-pad1_ adc_bridge_1
+* u5  net-_u3-pad2_ y dac_bridge_1
+xsc1 b a net-_sc1-pad3_ net-_sc1-pad3_ sky130_fd_pr__nfet_01v8_lvt 
+xsc3 a b net-_sc1-pad3_ net-_sc1-pad3_ sky130_fd_pr__nfet_01v8_lvt 
+xsc2 net-_sc1-pad3_ a net-_sc2-pad3_ net-_sc2-pad3_ sky130_fd_pr__pfet_01v8_lvt 
+xsc4 net-_sc1-pad3_ y ? net-_sc2-pad3_ sky130_fd_pr__pfet_01v8_lvt 
+v3 net-_sc2-pad3_ gnd  dc 5
+v1  b gnd pulse(0 5 0.1m 0.1m 0.1m 2 4)
+v2  a gnd pulse(0 5 0.1m 0.1m 0.1m 1 2)
+* u2  a plot_v1
+* u6  y plot_v1
+* u1  b plot_v1
+* s c m o d e
+* u3  net-_u3-pad1_ net-_u3-pad2_ dwaraka_not
+a1 [net-_sc1-pad3_ ] [net-_u3-pad1_ ] u4
+a2 [net-_u3-pad2_ ] [y ] u5
+a3 [net-_u3-pad1_ ] [net-_u3-pad2_ ] u3
+* Schematic Name:                             adc_bridge_1, NgSpice Name: adc_bridge
+.model u4 adc_bridge(in_low=1.0 in_high=2.0 rise_delay=1.0e-9 fall_delay=1.0e-9 ) 
+* Schematic Name:                             dac_bridge_1, NgSpice Name: dac_bridge
+.model u5 dac_bridge(out_low=0.0 out_high=5.0 out_undef=0.5 input_load=1.0e-12 t_rise=1.0e-9 t_fall=1.0e-9 ) 
+* Schematic Name:                             dwaraka_not, NgSpice Name: dwaraka_not
+.model u3 dwaraka_not(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 instance_id=1 ) 
+.tran 0.1e-00 20e-00 0e-00
+
+* Control Statements 
+.control
+run
+print allv > plot_data_v.txt
+print alli > plot_data_i.txt
+plot v(a)
+plot v(y)
+plot v(b)
+.endc
+.end
